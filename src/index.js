@@ -9,7 +9,7 @@ import reducer from './reducers/index';
 
 import { createStore } from 'redux';
 
-const store = createStore(reducer);
+let store = createStore(reducer);
 ReactDOM.render(<App store={store} />, document.getElementById('root'));
 
 registerServiceWorker();

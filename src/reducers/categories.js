@@ -1,6 +1,6 @@
-import { LOAD_CATEGORIES } from '../ducks';
+import { LOAD_CATEGORIES } from '../ducks/index';
 
-export function categories(state = null, action) {
+export default function categories(state = null, action) {
   switch (action.type) {
     case LOAD_CATEGORIES:
       var categories = action.categories.map(category => category.name);

@@ -4,11 +4,10 @@ import {
   EDIT_POST,
   DELETE_POST,
   UPVOTE_POST,
-  DOWNVOTE_POST,
-} from '../ducks';
+  DOWNVOTE_POST
+} from '../ducks/index';
 
-
-export function posts(state = null, action) {
+export default function posts(state = null, action) {
   var newPost = state;
   var posts = {};
 

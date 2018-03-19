@@ -6,9 +6,9 @@ import {
   DOWNVOTE_COMMENT,
   POST,
   COMMENT
-} from '../ducks';
+} from '../ducks/index';
 
-export function comments(state = null, action) {
+export default function comments(state = null, action) {
   var comments;
   var newComment;
 

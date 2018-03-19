@@ -5,6 +5,6 @@ import comments from './comments';
 
 export default combineReducers({
   categories,
-  posts,
-  comments
+  comments,
+  posts
 });
