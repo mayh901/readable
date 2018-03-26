@@ -7,48 +7,31 @@ import { Link } from 'react-router-dom';
 
 import Post from '../components/Post';
 
-class MainPage extends Component {
+class PostsCategories extends Component {
   constructor(props) {
     super(props);
     this.sortChanged = this.sortChanged.bind(this);
-    this.childChanged = this.sortChanged.bind(this);
-    this.getCategories();
+    this.childChanged = this.childChanged.bind(this);
     this.getPosts();
   }
-  state = {
-    sort: ''
-  };
-
-  getCategories() {
-    fetch('http://localhost:3001/categories/', {
-      method: 'GET',
-      headers: api.header()
-    }).then(response => {
-      response.json().then(data => {
-        let object = {
-          type: actions.LOAD_POST,
-          categories: data.categories
-        };
-        this.props.load_categories(object);
-      });
-    });
-  }
+  state = {};
 
   getPosts() {
-    fetch('http://localhost:3001/posts/', {
-      method: 'GET',
-      headers: api.header()
-    }).then(response => {
+    fetch(
+      'http://localhost:3001/' + this.props.match.params.category + '/posts',
+      { method: 'GET', headers: api.header() }
+    ).then(response => {
       response.json().then(data => {
         let object = {
           type: actions.LOAD_POST,
-          post: data
+          posts: data
         };
         this.props.load_post(object);
       });
     });
   }
-  sortAscPost() {
+
+  sortAscComments() {
     if (this.state.sort === 'ASC') {
       return;
     }
@@ -65,12 +48,15 @@ class MainPage extends Component {
     });
     this.setState({ sort: 'ASC', sorted_posts: posts });
   }
-  sortDesPost() {
+
+  sortDescComments() {
     if (this.state.sort === 'DESC') {
       return;
     }
+
     let keys = Object.keys(this.props.posts);
     let posts = keys.map(key => this.props.posts[key]);
+
     posts.sort((a, b) => {
       if (a.voteScore > b.voteScore) {
         return -1;
@@ -78,28 +64,30 @@ class MainPage extends Component {
       if (a.voteScore < b.voteScore) {
         return 1;
       }
+
       return 0;
     });
+
     this.setState({ sort: 'DESC', sorted_posts: posts });
-  }
-  childChanged() {
-    this.forceUpdate();
   }
 
   sortChanged() {
     this.setState({ sort: 'CHANGED' });
   }
+  childChanged() {
+    this.forceUpdate();
+  }
   getKeys() {
     if (this.state.sorted_posts) {
-      return this.state.sorted_posts.length > 0
-        ? this.state.sorted_posts.filter(post => post.deleted === false)
+      return this.state.sorted_posts > 0
+        ? this.set.sorted_posts.filter(post => post.deleted === false)
         : false;
     }
-    if (this.props.post) {
+    if (this.props.posts) {
       let array = [];
-      Object.keys(this.props.post).forEach((item, index) => {
-        if (this.props.post[item].deleted === false) {
-          array.push(this.props.post[item]);
+      Object.keys(this.props.posts).forEach((key, index) => {
+        if (this.props.post[key].deleted === false) {
+          array.push(this.props.posts[key]);
         }
       });
       return array.length > 0 ? array : false;
@@ -113,32 +101,31 @@ class MainPage extends Component {
     return (
       <div className="APP">
         <div className="Banner">
-          <h1>UDACITY READABLE -- Hannah May</h1>
+          <h1> CATEGORY - {this.props.match.params.category}</h1>
         </div>
-        <div className="MAIN">
-          <div>
-            <button className="CreatePost">
-              <Link to="/create/post">Create Post</Link>
-            </button>
+        <div>
+          <button className="Home">
+            <Link to="/">HOME</Link>
+          </button>
+          <div className="voteButtonGroup">
             <p>Sort by Vote Score</p>
             <button
-              className="ascending"
+              className="Ascending"
               onClick={() => {
-                this.sortAscPost();
+                this.sortAscComments();
               }}
             >
               Ascending
             </button>
             <button
-              className="descending"
+              className="Descending"
               onClick={() => {
-                this.sortDesPost();
+                this.sortDescComments();
               }}
             >
               Descending
             </button>
           </div>
-          <h2>POSTS</h2>
           {this.props.posts &&
             keys &&
             keys.map(post => (
@@ -164,9 +151,8 @@ function mapStateToProps({ posts, comments, categories }) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    load_categories: data => dispatch(actions.load_categories(data)),
     load_post: data => dispatch(actions.load_post(data))
   };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(MainPage);
+export default connect(mapStateToProps, mapDispatchToProps)(PostsCategories);

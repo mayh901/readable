@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import '../App.css';
 import * as actions from '../ducks/index';
 import { connect } from 'react-redux';
-import * as api from '../api';
+import * as api from '../API';
 
 class Comments extends Component {
   state = {
@@ -25,9 +25,9 @@ class Comments extends Component {
       alert('Comment must be 5 Characters please');
       return;
     }
-    fetch('http://localhost:5001/comments/' + this.props.comment.id, {
+    fetch('http://localhost:3001/comments/' + this.props.comment.id, {
       method: 'DELETE',
-      headers: api.headers_one()
+      headers: api.header()
     }).then(response => {
       response.json().then(data => {
         let object = {
@@ -52,13 +52,13 @@ class Comments extends Component {
 
   upVoteComment() {
     fetch(
-      'http://localhost:5001/comments/' +
+      'http://localhost:3001/comments/' +
         this.props.comment.id +
         '?option=upVote',
       {
         method: 'POST',
         body: JSON.stringify({ option: 'upVote' }),
-        headers: api.headers_one()
+        headers: api.header()
       }
     ).then(response => {
       response.json().then(data => {
@@ -77,13 +77,13 @@ class Comments extends Component {
     });
   }
   downvoteComment() {
-    fetch('http://localhost:5001/comments/' + this.props.comment.id, {
+    fetch('http://localhost:3001/comments/' + this.props.comment.id, {
       method: 'POST',
       body: JSON.stringify({ option: 'downVote' }),
-      headers: api.headers_one()
+      headers: api.header()
     }).then(response => {
       response.json().then(data => {
-        var object = {
+        let object = {
           type: actions.DOWNVOTE_COMMENT,
           id: this.props.comment.id,
           voteScore: data.voteScore
@@ -103,12 +103,12 @@ class Comments extends Component {
       return;
     }
 
-    fetch('http://localhost:5001/comments/' + this.props.comment.id, {
+    fetch('http://localhost:3001/comments/' + this.props.comment.id, {
       method: 'DELETE',
-      headers: api.headers_one()
+      headers: api.header()
     }).then(response => {
       response.json().then(data => {
-        var object = {
+        let object = {
           type: actions.DELETE_COMMENT,
           id: data.id,
           deleted: data.deleted,
@@ -205,3 +205,4 @@ function mapDispatchToProps(dispatch) {
     downvote_comment: data => dispatch(actions.downvote_comment(data))
   };
 }
+export default connect(mapStateToProps, mapDispatchToProps)(Comment);

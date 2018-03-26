@@ -16,7 +16,7 @@ class App extends Component {
   render() {
     let keys = Object.keys(this.props.posts);
     return (
-      <div className="App">
+      <div className="APP">
         <div>
           {keys.map(key => <Post key={key} post={this.props.posts[key]} />)}
         </div>

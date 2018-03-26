@@ -2,10 +2,8 @@ import React, { Component } from 'react';
 import '../App.css';
 import * as actions from '../ducks/index';
 import { connect } from 'react-redux';
-import * as api from '../api';
+import * as api from '../API';
 import { Link } from 'react-router-dom';
-
-import Comments from '../components/Comments';
 
 class Post extends Component {
   state = {
@@ -18,9 +16,9 @@ class Post extends Component {
   };
   //TODO check action may be wrong?????
   createComments() {
-    fetch('http://localhost:5001/posts/' + this.props.post.id + '/comments', {
+    fetch('http://localhost:3001/posts/' + this.props.post.id + '/comments', {
       method: 'GET',
-      headers: api.headers_one()
+      headers: api.header()
     }).then(response => {
       response.json().then(data => {
         if (data.length > 0) {
@@ -48,7 +46,7 @@ class Post extends Component {
           comment.parentsId === this.props.post.id && comment.deleted === false
         );
       });
-      number.numberSize.length;
+      number = numberSize.length;
     } else {
       let keys = Object.keys(this.props.comments);
       numberSize = keys.filter(comment_id => {
@@ -79,13 +77,13 @@ class Post extends Component {
     if (this.state.body < 5) {
       alert('Input must be at least 5 characters');
     }
-    fetch('http://localhost:5001/posts/' + this.props.post.id, {
+    fetch('http://localhost:3001/posts/' + this.props.post.id, {
       method: 'PUT',
       body: JSON.stringify({
         title: this.state.title.trim(),
         body: this.state.body.trim()
       }),
-      headers: api.headers_one()
+      headers: api.header()
     }).then(response => {
       response.json().then(data => {
         let object = {
@@ -108,10 +106,10 @@ class Post extends Component {
   }
 
   upvotePost() {
-    fetch('http://localhost:5001/posts/' + this.props.post.id, {
+    fetch('http://localhost:3001/posts/' + this.props.post.id, {
       method: 'POST',
       body: JSON.stringify({ option: 'upVote' }),
-      headers: api.headers_one()
+      headers: api.header()
     }).then(response => {
       response.json().then(data => {
         let object = {
@@ -130,10 +128,10 @@ class Post extends Component {
   }
 
   downvotePost() {
-    fetch('http://localhost:5001/posts/' + this.props.post.id, {
+    fetch('http://localhost:3001/posts/' + this.props.post.id, {
       method: 'POST',
       body: JSON.stringify({ option: 'downVote' }),
-      headers: api.headers_one()
+      headers: api.header()
     }).then(response => {
       response.json().then(data => {
         let object = {
@@ -151,16 +149,16 @@ class Post extends Component {
     });
   }
   deletePost() {
-    var confirm = window.confirm(
+    let confirm = window.confirm(
       'Are you sure you would like to delete this post?'
     );
     if (confirm === false) {
       return;
     }
 
-    fetch('http://localhost:5001/posts/' + this.props.post.id, {
+    fetch('http://localhost:3001/posts/' + this.props.post.id, {
       method: 'DELETE',
-      headers: api.headers_one()
+      headers: api.header()
     }).then(response => {
       let object = {
         type: actions.DELETE_POST,
@@ -175,7 +173,7 @@ class Post extends Component {
     });
   }
   sortAscComments() {
-    if (this.state.sort == 'ASC') {
+    if (this.state.sort === 'ASC') {
       return;
     }
     let keys = Object.keys(this.props.comments);
@@ -192,7 +190,7 @@ class Post extends Component {
     this.setState({ sort: 'ASC', sorted_comments: comments });
   }
   sortDesComments() {
-    if (this.state.sort == 'DESC') {
+    if (this.state.sort === 'DESC') {
       return;
     }
     let keys = Object.keys(this.props.comments);
@@ -226,7 +224,7 @@ class Post extends Component {
     }
 
     if (this.props.comments) {
-      var array = [];
+      let array = [];
       Object.keys(this.props.comments).forEach((item, index) => {
         if (
           this.props.comments[item].parentsId === this.props.post.id &&

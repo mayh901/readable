@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import '../App.css';
 import * as actions from '../ducks';
 import { connect } from 'react-redux';
-import * as api from '../api';
+import * as api from '../API';
 import { Link } from 'react-router-dom';
 
 import Post from '../components/Post';
@@ -15,9 +15,9 @@ class PostPage extends Component {
   }
 
   getPosts() {
-    fetch('http://localhost:5001/posts/', {
+    fetch('http://localhost:3001/posts/', {
       method: 'GET',
-      headers: api.headers_one()
+      headers: api.header()
     }).then(response => {
       response.json().then(data => {
         let object = {

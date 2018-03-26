@@ -8,8 +8,8 @@ import {
 } from '../ducks/index';
 
 export default function posts(state = null, action) {
-  var newPost = state;
-  var posts = {};
+  let newPost = state;
+  let posts = {};
 
   switch (action.type) {
     case LOAD_POST:

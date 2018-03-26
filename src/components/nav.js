@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import '../App.css';
 import * as actions from '../ducks/index';
 import { connect } from 'react-redux';
-import * as api from '../api';
 import { Link, Route, Router } from 'react-router-dom';
 
 class nav extends Component {
@@ -14,7 +13,7 @@ class nav extends Component {
   };
   render() {
     return (
-      <div className="nav-container">
+      <div className="nav-container" style={{ border: '1px solid red' }}>
         <a className="menu-link" />
         <div style={{ display: this.state.showNav }} className="nav" />
       </div>

@@ -9,8 +9,8 @@ import {
 } from '../ducks/index';
 
 export default function comments(state = null, action) {
-  var comments;
-  var newComment;
+  let comments;
+  let newComment;
 
   switch (action.type) {
     case COMMENT:

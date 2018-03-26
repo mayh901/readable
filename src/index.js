@@ -4,7 +4,6 @@ import './index.css';
 
 import registerServiceWorker from './registerServiceWorker';
 import Root from './Root';
-import App from './App';
 import reducer from './reducers/index';
 
 import { createStore } from 'redux';

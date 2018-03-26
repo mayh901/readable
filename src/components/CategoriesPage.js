@@ -12,9 +12,9 @@ class CreatePage extends Componet {
   }
 
   getCategories() {
-    fetch('http://localhost:5001/categories/', {
+    fetch('http://localhost:3001/categories/', {
       method: 'GET',
-      headers: api.headers_one()
+      headers: api.header()
     }).then(response => {
       response.json().then(data => {
         let object = {

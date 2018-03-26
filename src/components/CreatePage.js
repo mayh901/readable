@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import '../App.css';
 import * as actions from '../ducks';
 import { connect } from 'react-redux';
-import * as api from '../api';
+import * as api from '../API';
 import { Link } from 'react-router-dom';
 
 class CreatePage extends Component {
@@ -24,9 +24,9 @@ class CreatePage extends Component {
   }
 
   getCategories() {
-    fetch('http://localhost:5001/categories/', {
+    fetch('http://localhost:3001/categories/', {
       method: 'GET',
-      headers: api.headers_one()
+      headers: api.header()
     }).then(response => {
       response.json().then(data => {
         let object = {
@@ -55,9 +55,9 @@ class CreatePage extends Component {
     if (this.state.body.length < 5) {
       return null;
     }
-    if (this.state.category === '') {
-      return null;
-    }
+    // if (this.state.category === '') {
+    //   return null;
+    // }
     let object = {
       timestamp: Date.now(),
       title: this.state.title.trim(),
@@ -74,10 +74,10 @@ class CreatePage extends Component {
       return;
     }
 
-    fetch('http://localhost:5001/posts/', {
+    fetch('http://localhost:3001/posts/', {
       method: 'POST',
       body: body,
-      headers: api.headers_one()
+      headers: api.header()
     }).then(response => {
       response.json().then(data => {
         let object = {
@@ -99,9 +99,8 @@ class CreatePage extends Component {
   }
 
   render() {
-    let keys = this.props.categories ? this.props.categories : false;
     return (
-      <div className="App">
+      <div className="APP">
         <div className="Banner">
           <h1>
             <Link to="/">HOME</Link>

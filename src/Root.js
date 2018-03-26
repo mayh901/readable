@@ -3,14 +3,12 @@ import PropTypes from 'prop-types';
 import { Provider } from 'react-redux';
 import { Route, BrowserRouter } from 'react-router-dom';
 
-import { create_comment } from './ducks/index';
-
 import CreatePage from './components/CreatePage';
 import MainPage from './components/MainPage';
 import PostPage from './components/PostPage';
 import CreateComment from './components/CreateComment';
-import PostCategories from './components/PostCategories';
-// import P from './components/MainPage';
+import PostsCategories from './components/PostsCategories';
+import PostCategories from './components/PostCatgories';
 
 const Root = ({ store }) => (
   <Provider store={store}>
@@ -18,14 +16,14 @@ const Root = ({ store }) => (
       <div>
         <Route exact path="/" component={MainPage} />
         <Route exact path="/create/post" component={CreatePage} />
-        <Route exact path="/post/:id" component={PostPage} />
+        <Route exact path="/posts/:id" component={PostPage} />
         <Route
           exact
-          path="/post/:id/create_comment"
+          path="/posts/:id/create_comment"
           component={CreateComment}
         />
-        <Route exact path="/:category" component={PostCategories} />
-        {/* <Route exact path='/post/:id'  component = {PostPage}/> */}
+        <Route exact path="/:category" component={PostsCategories} />
+        <Route exact path="/:category/:post_id" component={PostCategories} />
       </div>
     </BrowserRouter>
   </Provider>
