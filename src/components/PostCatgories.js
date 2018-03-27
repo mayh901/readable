@@ -62,8 +62,8 @@ class PostCategories extends Component {
     let key = this.getKeys();
     return (
       <div className="APP">
-        <div className="Banner">
-          <h1>{/* <Link to="/">HOME</Link> */}</h1>
+        <div className="Banner" style={{ background: 'lightgray' }}>
+        <h1>{/* <Link to="/">HOME</Link> */}</h1>
         </div>
         <div>
           <br />

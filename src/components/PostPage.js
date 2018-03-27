@@ -58,7 +58,7 @@ class PostPage extends Component {
     let key = this.getKeys();
     return (
       <div className="APP">
-        <div className="Banner">
+        <div className="Banner" style={{ background: 'lightgray' }}>
           <h1>
             <Link to="/">HOME</Link>
           </h1>

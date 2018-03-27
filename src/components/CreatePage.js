@@ -4,6 +4,7 @@ import * as actions from '../ducks';
 import { connect } from 'react-redux';
 import * as api from '../API';
 import { Link } from 'react-router-dom';
+import * as tools from '../random';
 
 class CreatePage extends Component {
   constructor(props) {
@@ -59,6 +60,7 @@ class CreatePage extends Component {
     //   return null;
     // }
     let object = {
+      id: tools.random(),
       timestamp: Date.now(),
       title: this.state.title.trim(),
       body: this.state.body.trim(),
@@ -101,7 +103,7 @@ class CreatePage extends Component {
   render() {
     return (
       <div className="APP">
-        <div className="Banner">
+        <div className="Banner" style={{ background: 'lightgray' }}>
           <h1>
             <Link to="/">HOME</Link>
           </h1>

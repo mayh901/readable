@@ -29,7 +29,7 @@ class CreatePage extends Componet {
     let keys = this.props.categories ? this.props.categories : false;
     return (
       <div className="APP">
-        <div className="Banner">
+        <div className="Banner" style={{ background: 'lightgray' }}>
           <h1>
             <Link to="/">HOME</Link>
           </h1>

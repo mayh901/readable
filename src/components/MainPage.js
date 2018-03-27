@@ -112,8 +112,8 @@ class MainPage extends Component {
     let keys = this.getKeys();
     return (
       <div className="APP">
-        <div className="Banner">
-          <h1>UDACITY READABLE -- Hannah May</h1>
+        <div className="Banner" style={{ background: 'lightgray' }}>
+        <h1>UDACITY READABLE -- Hannah May</h1>
         </div>
         <div className="MAIN">
           <div>

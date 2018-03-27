@@ -100,7 +100,7 @@ class PostsCategories extends Component {
     let keys = this.getKeys();
     return (
       <div className="APP">
-        <div className="Banner">
+        <div className="Banner" style={{ background: 'lightgray' }}>
           <h1> CATEGORY - {this.props.match.params.category}</h1>
         </div>
         <div>
